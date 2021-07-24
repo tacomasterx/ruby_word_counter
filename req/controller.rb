@@ -19,7 +19,7 @@ class Controller
     # Sets the :paragraph attribute and returns its counter
     def paragraph_counter
         # Separate pharagraphs 
-        paras = @text.split(".\n", -1)
+        paras = @text.split("\n", -1)
         paras.count.times do |i|
             # Removes new line characters
             paras[i] = paras[i].gsub("\n", "")
@@ -42,6 +42,7 @@ class Controller
             buffer = buffer.gsub("?", "?|")
             buffer = buffer.gsub("¡", "|¡")
             buffer = buffer.gsub("!", "!|")
+            buffer = buffer.gsub("•", "")
             sents["p#{i}"] = buffer.split(/[,.;:|]/, -1)
         end
         counter = 0
@@ -72,6 +73,8 @@ class Controller
                     buffer = buffer.gsub("!", "")
                     buffer = buffer.gsub("¿", "")
                     buffer = buffer.gsub("?", "")
+                    buffer = buffer.gsub("(", "")
+                    buffer = buffer.gsub(")", "")
                     # Splits groups of words into arrays stored in hashes
                     # hashes uses paragraph an sentence pointers as keys. 
                     words["p#{i}s#{j}"] = buffer.split("\s", -1)    
@@ -82,7 +85,7 @@ class Controller
         counter = 0
         words.each do |sent|
             sent[1].each do |word|
-                #puts word
+                # puts word
                 counter += 1
             end
         end
